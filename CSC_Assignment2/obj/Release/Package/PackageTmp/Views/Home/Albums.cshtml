@@ -10,8 +10,7 @@
     if (albumId) {
         // Have value, Load current album
         $.get({
-            //url: 'http://localhost:2662/api/v1/Albums/' + albumId,
-            url: 'http://csc-assignment2.azurewebsites.net/api/v1/Albums/' + albumId,
+            url: '/api/v1/Albums/' + albumId,
             type: 'GET',
             success: function (response) {
                 if (response.length > 0) {
@@ -19,8 +18,12 @@
 
                     response.forEach(function (data) {
                         var card = $('<div>', { class: 'card' });
+                        var link = $('<a>', { class: 'image', href: '/Home/Photo/' + data.imageId });
                         var image = $('<img>', { class: 'ui medium rounded image', src: data.url });
-                        card.append(image);
+
+                        link.append(image);
+                        card.append(link);
+
                         $('#albumsCards').append(card);
                     });
                 } else {
@@ -31,13 +34,12 @@
     } else {
         // No value, Load all albums
         $.get({
-            //url: 'http://localhost:2662/api/v1/Albums',
-            url: 'http://csc-assignment2.azurewebsites.net/api/v1/Albums',
+            url: '/api/v1/Albums',
             type: 'GET',
             success: function (response) {
                 response.forEach(function (data) {
                     var card = $('<div>', { class: 'card' });
-                    var link = $('<a>', { class: 'image', href: 'http://csc-assignment2.azurewebsites.net/Home/Albums/' + data.userId });
+                    var link = $('<a>', { class: 'image', href: '/Home/Albums/' + data.userId });
                     var image = $('<img>', { src: data.lastestImage });
 
                     var content = $('<div>', { class: 'content' });

@@ -24,8 +24,20 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
+                    <li><a href="/Home/Albums">Albums</a></li>
                     <li>@Html.ActionLink("Upload Image", "UploadFile", "Home", new { area = "" }, null)</li>
-                    <li>@Html.ActionLink("Albums", "Albums", "Home", new { area = "" }, null)</li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li id="logoutButton"><a href="#">Logout</a></li>
+                    }
+                    else
+                    {
+                        <li>@Html.ActionLink("Register", "Register", "Accounts", new { area = "" }, null)</li>
+                        <li>@Html.ActionLink("Login", "Login", "Accounts", new { area = "" }, null)</li>
+                    }
                 </ul>
             </div>
         </div>
@@ -39,5 +51,20 @@
     </div>
 
     @RenderSection("scripts", required: false)
+    <script>
+        $('#logoutButton').on('click', function () {
+            $.ajax({
+                url: '/api/Account/Logout',
+                type: 'POST',
+                headers: {
+                    Authorization: 'BEARER ' + sessionStorage.getItem("token")
+                },
+                success: function (response) {
+                    sessionStorage.removeItem("token");
+                    window.location = "/Accounts/Login";
+                }
+            });
+        });
+    </script>
 </body>
 </html>
