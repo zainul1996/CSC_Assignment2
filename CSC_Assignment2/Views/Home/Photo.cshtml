@@ -1,0 +1,16 @@
+﻿<h2>Photo</h2>
+
+<img style="margin-top: 10%;" class="ui large rounded image centered" id="photo" />
+
+<script>
+    var photoId = '@ViewBag.PhotoId';
+
+    $.ajax({
+        url: 'http://localhost:2662/api/v1/Photo/' + photoId,
+        method: 'GET',
+        success: function (response) {
+            console.log(response);
+            $('#photo').attr('src', response.url);
+        }
+    });
+</script>

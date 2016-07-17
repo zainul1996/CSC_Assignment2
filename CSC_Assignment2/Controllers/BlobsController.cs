@@ -12,6 +12,7 @@ using Microsoft.WindowsAzure.Storage;
 using Microsoft.Azure;
 using Microsoft.WindowsAzure.Storage.Blob;
 using Microsoft.AspNet.Identity;
+using System.Net.Mail;
 
 namespace CSC_Assignment2.Controllers
 {
@@ -146,6 +147,30 @@ namespace CSC_Assignment2.Controllers
                 blobModel.Url = "https://cscassignment.blob.core.windows.net/images/" + fileName;
                 db.Blobs.Add(blobModel);
                 db.SaveChanges();
+
+
+                
+
+                int id = blobModel.BlobId;
+                // Send an email after successfully uploaded image
+                // Gmail SMTP server address
+                SmtpClient SendMailClient = new SmtpClient("smtp.gmail.com");
+
+                MailAddress fromAddress = new MailAddress("EeKhai@gmail.com");
+                MailAddress toAddress = new MailAddress(User.Identity.Name);
+                MailMessage msg = new MailMessage(fromAddress, toAddress);
+                // Set 465 or 587 port
+                SendMailClient.Port = 587;
+                SendMailClient.EnableSsl = true;
+                SendMailClient.UseDefaultCredentials = false;
+                SendMailClient.Credentials = new System.Net.NetworkCredential("bingzxc6@gmail.com", "binghuang");
+
+                msg.IsBodyHtml = true;
+                msg.Subject = "You have uploaded an image";
+                msg.Body = "Thanks you for uploading an image, <br />click the link to preview the image you have just posted: <a href=\"http://localhost:2662/Home/Photo/" + id +"\">http://localhost:2662/Home/Photo/" + id + "</a>";
+                SendMailClient.Send(msg);
+
+
 
                 return Ok("Uploaded: " + blobModel.Url);
             }

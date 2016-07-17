@@ -20,11 +20,19 @@ namespace CSC_Assignment2.Controllers
             ViewBag.Title = "Upload File";
             return View();
         }
-        
+
         public ActionResult Albums(string id)
         {
             ViewBag.Title = "Albums";
             ViewBag.AlbumId = id;
+
+            return View();
+        }
+
+        public ActionResult Photo(int id)
+        {
+            ViewBag.Title = "Photo";
+            ViewBag.PhotoId = id;
 
             return View();
         }
