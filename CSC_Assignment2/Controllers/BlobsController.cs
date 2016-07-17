@@ -42,7 +42,8 @@ namespace CSC_Assignment2.Controllers
                 ).ToList();
 
                 return Ok(query);
-            } catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 return InternalServerError(ex);
             }
@@ -65,10 +66,11 @@ namespace CSC_Assignment2.Controllers
                         imageId = blobs.BlobId,
                         url = blobs.Url
                     }
-                ); 
+                );
 
                 return Ok(query);
-            } catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 return InternalServerError(ex);
             }
@@ -89,10 +91,11 @@ namespace CSC_Assignment2.Controllers
                         imageId = blobs.BlobId,
                         url = blobs.Url
                     }
-                );
+                ).FirstOrDefault();
 
                 return Ok(query);
-            } catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 return InternalServerError(ex);
             }
