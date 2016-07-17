@@ -1,0 +1,57 @@
+﻿<h2 id="title" style="margin-top: 10%;">Albums</h2>
+<div id="albums" style="margin-top: 5%;">
+    <div id="albumsCards" class="ui link cards">
+    </div>
+</div>
+
+<script>
+    var albumId = '@ViewBag.AlbumId';
+
+    if (albumId) {
+        // Have value, Load current album
+        $.get({
+            //url: 'http://localhost:2662/api/v1/Albums/' + albumId,
+            url: 'http://csc-assignment2.azurewebsites.net/api/v1/Albums/' + albumId,
+            type: 'GET',
+            success: function (response) {
+                if (response.length > 0) {
+                    $('#title').text(response[0].userName + "'s Album");
+
+                    response.forEach(function (data) {
+                        var card = $('<div>', { class: 'card' });
+                        var image = $('<img>', { class: 'ui medium rounded image', src: data.url });
+                        card.append(image);
+                        $('#albumsCards').append(card);
+                    });
+                } else {
+                    $('#title').text('Invalid Album Id.');
+                }
+            }
+        });
+    } else {
+        // No value, Load all albums
+        $.get({
+            //url: 'http://localhost:2662/api/v1/Albums',
+            url: 'http://csc-assignment2.azurewebsites.net/api/v1/Albums',
+            type: 'GET',
+            success: function (response) {
+                response.forEach(function (data) {
+                    var card = $('<div>', { class: 'card' });
+                    var link = $('<a>', { class: 'image', href: 'http://csc-assignment2.azurewebsites.net/Home/Albums/' + data.userId });
+                    var image = $('<img>', { src: data.lastestImage });
+
+                    var content = $('<div>', { class: 'content' });
+                    var header = $('<div>', { class: 'header', text: data.userName });
+                    var meta = $('<div>', { class: 'meta', text: data.totalImage + ' images' });
+                    content.append(header).append(meta);
+
+                    link.append(image);
+                    card.append(link);
+                    card.append(content);
+
+                    $('#albumsCards').append(card);
+                });
+            }
+        });
+    }
+</script>

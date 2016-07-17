@@ -1,0 +1,49 @@
+﻿<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.3.0/min/dropzone.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.3.0/min/dropzone.min.js"></script>
+
+<h2>UploadFile</h2>
+
+<!--<form method="post" action="/api/v1/UploadFile" enctype="multipart/form-data">
+    <input type="file" name="file" id="file" />
+    <input type="submit" value="Upload File" />
+</form>-->
+
+<div id="myDropzone" class="dropzone"></div>
+
+<br />
+<button class="ui secondary button" id="uploadFile">Upload File</button>
+
+<script>
+    Dropzone.autoDiscover = false;
+
+    var dropzone = new Dropzone('#myDropzone', {
+        paramName: 'file',
+        url: '/api/v1/UploadFile',
+        autoProcessQueue: false,
+        maxFiles: 1,
+        acceptedFiles: 'image/*',
+        headers: {
+            Authorization: 'BEARER '
+        },
+        init: function () {
+            this.on('complete', function (file) {
+                if (this.getUploadingFiles().length === 0 && this.getQueuedFiles().length === 0) {
+                    $('#uploadFile').removeClass('loading');
+                }
+            });
+
+            this.on('sending', function () {
+                $('#uploadFile').addClass('loading');
+            });
+
+            this.on("maxfilesexceeded", function (file) {
+                this.removeAllFiles();
+                this.addFile(file);
+            });
+        }
+    });
+
+    $('#uploadFile').on('click', function () {
+        dropzone.processQueue();
+    });
+</script>
