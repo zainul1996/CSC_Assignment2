@@ -90,8 +90,10 @@
                 }
             });
 
-            this.on('error', function (file) {
-                $('#loginModal').modal('show');
+            this.on('error', function (file, errorMessage, xhr) {
+                if (xhr) {
+                    $('#loginModal').modal('show');
+                }
             });
 
             this.on('sending', function () {

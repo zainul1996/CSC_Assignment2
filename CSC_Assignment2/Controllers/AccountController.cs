@@ -338,21 +338,27 @@ namespace CSC_Assignment2.Controllers
                 return GetErrorResult(result);
             }
 
-            // Gmail SMTP server address
-            SmtpClient SendMailClient = new SmtpClient("smtp.gmail.com");
+            try
+            {
+                // Gmail SMTP server address
+                SmtpClient SendMailClient = new SmtpClient("smtp.gmail.com");
 
-            MailAddress fromAddress = new MailAddress("EeKhai@gmail.com");
-            MailAddress toAddress = new MailAddress(model.Email);
-            MailMessage msg = new MailMessage(fromAddress, toAddress);
-            // Set 465 or 587 port
-            SendMailClient.Port = 587;
-            SendMailClient.EnableSsl = true;
-            SendMailClient.UseDefaultCredentials = false;
-            SendMailClient.Credentials = new System.Net.NetworkCredential("bingzxc6@gmail.com", "binghuang");
+                MailAddress fromAddress = new MailAddress("EeKhai@gmail.com");
+                MailAddress toAddress = new MailAddress(model.Email);
+                MailMessage msg = new MailMessage(fromAddress, toAddress);
+                // Set 465 or 587 port
+                SendMailClient.Port = 587;
+                SendMailClient.EnableSsl = true;
+                SendMailClient.UseDefaultCredentials = false;
+                SendMailClient.Credentials = new System.Net.NetworkCredential("bingzxc6@gmail.com", "BingHuang");
 
-            msg.Subject = "Registration Confirmation";
-            msg.Body = "Thank you for registering with SMILE.";
-            SendMailClient.Send(msg);
+                msg.Subject = "Registration Confirmation";
+                msg.Body = "Thank you for registering with SMILE.";
+                SendMailClient.Send(msg);
+            } catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
             
             return Ok();
         }

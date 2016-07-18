@@ -6,7 +6,7 @@
     var photoId = '@ViewBag.PhotoId';
 
     $.ajax({
-        url: 'http://localhost:2662/api/v1/Photo/' + photoId,
+        url: '/api/v1/Photo/' + photoId,
         method: 'GET',
         success: function (response) {
             console.log(response);

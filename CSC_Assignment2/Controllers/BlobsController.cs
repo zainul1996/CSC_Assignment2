@@ -163,13 +163,12 @@ namespace CSC_Assignment2.Controllers
                 SendMailClient.Port = 587;
                 SendMailClient.EnableSsl = true;
                 SendMailClient.UseDefaultCredentials = false;
-                SendMailClient.Credentials = new System.Net.NetworkCredential("bingzxc6@gmail.com", "binghuang");
+                SendMailClient.Credentials = new System.Net.NetworkCredential("bingzxc6@gmail.com", "BingHuang");
 
                 msg.IsBodyHtml = true;
                 msg.Subject = "You have uploaded an image";
-                msg.Body = "Thanks you for uploading an image, <br />click the link to preview the image you have just posted: <a href=\"http://localhost:2662/Home/Photo/" + id +"\">http://localhost:2662/Home/Photo/" + id + "</a>";
+                msg.Body = "Thanks you for uploading an image, <br />click the link to preview the image you have just posted: <a href=\"http://csc-assignment2.azurewebsites.net/Home/Photo/" + id + "\">http://csc-assignment2.azurewebsites.net/Home/Photo/" + id + "</a>";
                 SendMailClient.Send(msg);
-
 
 
                 return Ok("Uploaded: " + blobModel.Url);

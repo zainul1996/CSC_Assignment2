@@ -54,6 +54,7 @@
                     window.location = '/Accounts/Login';
                 },
                 error: function (response) {
+                    console.log(response);
                     alert('Enter correct details, The Password must be at least 6 characters long');
                 }
             });
