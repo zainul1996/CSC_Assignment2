@@ -36,5 +36,17 @@ namespace CSC_Assignment2.Controllers
 
             return View();
         }
+
+        public ActionResult TalentSearch()
+        {
+            ViewBag.Title = "Talent Search";
+            return View();
+        }
+
+        public ActionResult Weather()
+        {
+            ViewBag.Title = "WeatherAPI";
+            return View();
+        }
     }
 }

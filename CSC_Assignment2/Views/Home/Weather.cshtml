@@ -1,0 +1,17 @@
+﻿<label style="margin-top:10%" id="weather"></label>
+<script>
+    function toTitleCase(str) {
+        return str.replace(/\w\S*/g, function (txt) { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(); });
+    }
+
+    $.ajax({
+        type: 'GET',
+        url: '/api/v1/GetWeatherByCity/Singapore/Singapore',
+        contentType: "application/json",
+    }).done(function (data) {
+        console.log(data);
+        var regExp = /\(([^)]+)\)/;
+        var matches = regExp.exec(data.Temperature);
+        $('#weather').append(toTitleCase(data.SkyConditions) + " " + matches[1].split(" ")[0] + " &#x2103;");
+    })
+</script>
