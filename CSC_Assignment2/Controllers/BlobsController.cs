@@ -105,7 +105,7 @@ namespace CSC_Assignment2.Controllers
         [Authorize]
         [HttpPost]
         [Route("api/v1/UploadFile")]
-        public IHttpActionResult UploadFile()
+        public IHttpActionResult UploadFile([FromBody] dynamic value)
         {
             try
             {
@@ -129,6 +129,7 @@ namespace CSC_Assignment2.Controllers
                 CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
                 CloudBlobContainer container = blobClient.GetContainerReference("images");
                 container.CreateIfNotExists();
+
 
                 // Prepare the new file name
                 string fileName = DateTime.Now.ToUniversalTime().Subtract(

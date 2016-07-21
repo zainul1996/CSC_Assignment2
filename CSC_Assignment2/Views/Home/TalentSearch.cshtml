@@ -1,6 +1,23 @@
-﻿<br><br><br><br><br>
-<form class="ui form">
+﻿<form  class="ui form">
     <div class="field">
-        <input type="text" name="first-name" placeholder="First Name">
+        <input type="text" id="searchTerm" name="first-name" onkeypress="return runScript(event);" placeholder="Search">
     </div>
 </form>
+
+<script>
+    var search = function (searchTerm) {
+        $.ajax({
+            type: 'GET',
+            url: '/api/talentsearch/'+searchTerm
+        }).done(function(data) {
+            alert(data)
+        })
+    }
+
+    function runScript(e) {
+        if (e.keyCode == 13) {
+            search($('#searchTerm').val());
+            return false;
+        }
+    }
+</script>
